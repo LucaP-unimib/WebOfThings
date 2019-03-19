@@ -1,0 +1,26 @@
+﻿wot-pi
+├── middleware
+│   ├── auth.js     // Authorization: If no token provided, return 401 UNAUTHORIZED, If token is not a valid API key, return 403 FORBIDDEN
+│   └── converter.js //Handles requests with different accept headers like msgpack5 and JsonLd
+├── plugins
+│   ├── corePlugin.js //General plugin used as template for sensors and actuators plugins.
+│   └── internal
+│       ├── dht22Plugin.js  //Hummidity and Temperature sensor's plugin
+│       ├── lockPlugin.js   //A boolean sensor that checks whether the door is locked or not
+│       └── LoPlugin.js    //Passive infra-red sensor's plugin
+├── public/
+├── resources
+│   ├── auth.json   //Contains the API-token for authorization
+│   ├── model.js
+│   ├── piJsonLd.json   //jsonLd properties of the Pi to handle "Accept: application/ld+json" header requests
+│   └── piNoLd.json     json properties of the Pi
+├── routes
+│   └── routesCreator.js    //Creates the REST routes with express
+├── servers
+│   ├── http.js         //http server: it enables API auth, creates routes and templates the engine
+│   └── websockets.js   //websocket: it is created with the Express server
+├── utils/
+├── views/
+├── package.json        //json package with info and dependencies (here is where you change author names')
+├── wot-server.js       //starts internal hardware/simulated plugins (main file)
+└── wot.js	//starts a server running the conde inside wot-server.js

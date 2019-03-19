@@ -1,0 +1,125 @@
+{
+"@context": "http://schema.org/Product",
+"@id": "http://localhost:8484",
+"name": "My WoT Raspberry PI",
+"description": "A WoT-connected Raspberry Pi, using a PIR sensor and a virtual lock.",
+"productID" : "asin:B00T2U7R7I",
+"manufacturer" : "Raspberry Pi",
+"model" : "100437",
+"image" : "http://devices.webofthings.io:9090/snapshot.cgi?user=snapshots&pwd=4MXfTSr0gH",
+"tags": [
+"raspberry",
+"pi",
+"WoT"
+],
+  "customFields": {
+    "hostname":"localhost",
+    "port": 8484,
+    "secure": false,
+    "dataArraySize" : 30
+  },
+  "links": {
+    "product": {
+      "link": "https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/",
+      "title": "Product this Web Thing is based on"
+    },
+    "properties": {
+      "link": "/properties",
+      "title": "List of Properties",
+      "resources": {
+		"temperature": {
+          "name": "Temperature Sensor",
+          "description": "An ambient temperature sensor.",
+          "values": {
+            "t": {
+              "name": "Temperature sensor",
+              "description": "The temperature in celsius",
+              "unit": "celsius",
+              "customFields": {
+                "gpio": 12
+              }
+            }
+          },
+          "tags": [
+            "sensor",
+            "public",
+            "indoors"
+          ]
+        },
+        "humidity": {
+          "name": "Humidity Sensor",
+          "description": "An ambient humidity sensor.",
+          "values": {
+            "h": {
+              "name": "Humidity",
+              "description": "Percentage of Humidity",
+              "unit": "%",
+              "customFields": {
+                "gpio": 12
+              }
+            }
+          },
+          "tags": [
+            "sensor",
+            "public"
+          ]
+        },
+        "pir": {
+          "name": "Passive Infrared",
+          "description": "A passive infrared sensor.",
+          "values": {
+            "presence": {
+              "name": "Presence",
+              "description": "Current sensor value (true=motion detected)",
+              "type": "boolean",
+              "customFields": {
+                "gpio": 17
+              }
+            }
+          },
+          "tags": [
+            "sensor",
+            "public"
+          ]
+        },
+		"lock": {
+          "name": "Virtual Lock",
+          "description": "A sensor that emulates a lock.",
+          "values": {
+            "locked": {
+              "name": "locked",
+              "description": "Current sensor value (true=door locked)",
+              "type": "boolean",
+              "customFields": {
+                "gpio": 24
+              }
+            }
+          },
+          "tags": [
+            "sensor",
+            "public"
+          ]
+        }
+      }
+    },
+	"actions": {
+		"link": "/actions",
+		"title": "Actions of this Web Thing",
+		"resources": {
+	  },
+		"comment": "We don't need Actions in this example"
+	},
+    "type": {
+      "link": "http://model.webofthings.io/",
+      "title": "Instance type of the Pi"
+    },
+    "help": {
+      "link": "http://webofthings.org/docs/pi/",
+      "title": "Documentation"
+    },
+    "ui": {
+      "link": "/",
+      "title": "User Interface"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Polling PIR</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <h1>Current PIR Value: </h1>
+	<h2 id='pir'></h2><br>
+	
+	<div id="id00"></div><br>
+	
+	<h4> Log History: (limited to 30 entries)</h4>
+	<div id="id01"></div>
+    <script>
+	var target = "localhost:8484/properties/pir";
+	
+	var settings = {
+	  "async": true,
+	  "crossDomain": true,
+	  "url": target,
+	  "method": "GET",
+	  "headers": {
+		"Accept": "application/json",
+		"cache-control": "no-cache",
+	  }
+	}
+	function toShow(arr) {
+		var out = "";
+		var i;
+		for(i = 0; i < arr.length; i++) {
+			out += '<h5> presence: ' + arr[i].presence + ', ' + arr[i].timestamp + '</h5><br>';
+		}
+		document.getElementById("id01").innerHTML = out;
+	}
+
+$(document).ready(
+	function doPoll(){	//Getting the PIR valuse via long polling
+		$.ajax(settings).done(function (response) {
+			console.log(response);
+			document.getElementById("id00").innerHTML = '<h4> Connected to:' + '<a href= ' + target + '>' + target + '</a></h4><br>';
+			$('#pir').html('presence detected: ' + response[0].presence);
+			toShow(response);
+
+			setTimeout(doPoll, 5000);
+		});
+	});
+    </script>
+  </body>
+</html>
